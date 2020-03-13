@@ -7,6 +7,8 @@ public class Card : MonoBehaviour {
 	public Player owner;
 	protected bool valid = true;
 	protected bool win_played = false;
+
+
 	public void SetOwner(Player own) {
 		this.owner = own;
 		if (owner.up) {
