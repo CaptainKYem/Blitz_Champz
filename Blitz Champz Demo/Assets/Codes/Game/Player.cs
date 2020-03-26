@@ -54,6 +54,8 @@ public class Player : MonoBehaviour {
 		}
 		OrderField();
 	}
+
+    //THIS SECTION DETERMINES THE LOCATION AND ORIENTATION OF THE NORMAL CARDS
 	public void OrderField() {
 		for (int i = 0; i < field.Count; i++) {
 			field[i].transform.position = gameObject.transform.position;

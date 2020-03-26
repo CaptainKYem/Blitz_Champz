@@ -9,11 +9,13 @@ public class Pass_Completion : Continuation_Card
 
     //Location of card start and its end
     private Vector3 target;
-    private Vector3 position;
+    
+
+   
 
     void Start() {
         target = new Vector3(-1.45f, 0f, 0f);
-        position = gameObject.transform.position;
+        
     }
     protected override void Play() {
         StartCoroutine(MoveTo());
