@@ -9,17 +9,27 @@ public class GameOver : MonoBehaviour
     {
         
     }
+
+
     private void OnPointerUpAsButton() {
 
 	}
+
+
     public void Restart() {
         SceneManager.LoadScene("Menu");
     }
+
+
 	void OnPointerEnter() {
 	}
+
+
 	void OnPointerExit() {
 		
 	}
+
+
     void Update()
     {
         

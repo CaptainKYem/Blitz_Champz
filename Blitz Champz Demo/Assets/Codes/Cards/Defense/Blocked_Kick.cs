@@ -8,11 +8,17 @@ public class Blocked_Kick : Defensive_Card
     {
         kick = true;
     }
+
+
 	public override void Show() {
         gameObject.GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>("Cards/blocked_kick");
     }
+
+
     void Update()
     {
         
     }
+
+
 }

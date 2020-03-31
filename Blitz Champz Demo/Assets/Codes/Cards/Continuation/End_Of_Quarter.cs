@@ -10,16 +10,24 @@ public class End_Of_Quarter : Continuation_Card
     {
         
     }
+
+
     protected override void Play() {
         owner.table.Reverse();
         AdvanceTurn();
     }
+
+
 	public override void Show() {
         gameObject.GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>(spriteName);
     }
+
+
     // Update is called once per frame
     void Update()
     {
         
     }
+
+
 }

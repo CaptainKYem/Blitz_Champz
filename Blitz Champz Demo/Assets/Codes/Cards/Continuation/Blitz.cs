@@ -5,13 +5,19 @@ using UnityEngine;
 public class Blitz : Continuation_Card
 {
     private bool played = false;
+
+
     void Start()
     {
         
     }
+
+
     public void SetPlayed(bool a) {
 		win_played = a;
 	}
+
+
     public override bool CheckValid() {
         foreach (Player a in owner.table.order) {
             if (a != owner) {
@@ -24,9 +30,13 @@ public class Blitz : Continuation_Card
         valid = false;
         return false;
     }
+
+
     protected override void Play() {
         StartCoroutine(SelectCard());
     }
+
+
     IEnumerator SelectCard() {
         bool losing = false;
         Player winner = null;
@@ -97,6 +107,8 @@ public class Blitz : Continuation_Card
         owner.table.SetReady(true);
         this.Discard();
     }
+
+
     private void OnMouseUpAsButton() {
 		bool canPlay = CheckValid();
         if (owner != null && owner.table.current_player == owner) {
@@ -113,6 +125,8 @@ public class Blitz : Continuation_Card
             }
 		}
 	}
+
+
     void OnMouseExit() {
 		if (owner != null && owner == owner.table.current_player && !played) {
 			if (owner.hand.Contains(gameObject)) {
@@ -133,9 +147,13 @@ public class Blitz : Continuation_Card
 			}
 		}
 	}
+
+
 	public override void Show() {
         gameObject.GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>("Cards/blitz");
     }
+
+
     public new void Discard () {
 		if (this.owner != null) {
 			for (int i = 0; i < owner.hand.Count; i++) {
@@ -150,7 +168,11 @@ public class Blitz : Continuation_Card
 			Show();
 		}
 	}
+
+
     void Update()
     {
     }
+
+
 }

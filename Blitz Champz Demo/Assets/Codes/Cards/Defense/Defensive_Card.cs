@@ -10,22 +10,34 @@ public class Defensive_Card : Card {
 	void Start () {
 		
 	}
+
+
 	public void SetPlayed(bool a) {
 		win_played = a;
 	}
+
+
 	public bool GetKick() {
 		return kick;
 	}
+
+
 	public bool GetPass() {
 		return pass;
 	}
+
+
 	public bool GetRun() {
 		return run;
 	}
+
+
 	protected override void Play() {
 		owner.table.last_card.Remove();
 		AdvanceTurn();
 	}
+
+
 	private void OnMouseUpAsButton() {
 		if (owner != null && owner.table.current_player == owner) {
             if (CheckValid()) {
@@ -41,6 +53,8 @@ public class Defensive_Card : Card {
             }
 		}
 	}
+
+
 	public override bool CheckValid() {
 		if(owner.table.last_card){
 			if (owner.table.last_card.GetPass() == true && pass == true) {
@@ -60,7 +74,11 @@ public class Defensive_Card : Card {
 			return false;
 		}
 	}
+
+
 	void Update () {
 		
 	}
+
+
 }

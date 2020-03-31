@@ -7,17 +7,25 @@ public class Card : MonoBehaviour {
 	public Player owner;
 	protected bool valid = true;
 	protected bool win_played = false;
+
+
 	public void SetOwner(Player own) {
 		this.owner = own;
 		if (owner.up) {
 			gameObject.transform.rotation = Quaternion.Euler(0,0,0f);
 		}
 	}
+
+
 	public virtual bool CheckValid() {
 		return valid;
 	}
+
+
 	void Start () {
 	}
+
+
 	public void Discard () {
 		if (this.owner != null) {
 			for (int i = 0; i < owner.hand.Count; i++) {
@@ -33,20 +41,30 @@ public class Card : MonoBehaviour {
 			Show();
 		}
 	}
+
+
 	public void Hide() {
 		gameObject.GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>("Cards/back");
 	}
+
+
 	public virtual void Show() {
 	}
+
+
 	public void AdvanceTurn() {
 		owner.table.AdvanceTurn();
 	}
+
+
 	private void OnMouseUpAsButton() {
 		if (owner != null && owner.table.current_player == owner) {
 			this.Play();
 			this.Discard();
 		}
 	}
+
+
 	void OnMouseEnter() {
 		if (owner != null && owner == owner.table.current_player) {
 			if (owner.hand.Contains(gameObject)) {
@@ -84,6 +102,8 @@ public class Card : MonoBehaviour {
 			}
 		}
 	}
+
+
 	void OnMouseExit() {
 		if (owner != null && owner == owner.table.current_player) {
 			if (owner.hand.Contains(gameObject)) {
@@ -117,9 +137,15 @@ public class Card : MonoBehaviour {
 			}
 		}
 	}
+
+
 	protected virtual void Play () {
 	}
+
+
 	void Update () {
 		
 	}
+
+
 }

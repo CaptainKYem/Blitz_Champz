@@ -8,11 +8,17 @@ public class Interception : Defensive_Card
     {
         pass = true;
     }
+
+
 	public override void Show() {
         gameObject.GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>("Cards/interception");
     }
+
+
     void Update()
     {
         
     }
+
+
 }

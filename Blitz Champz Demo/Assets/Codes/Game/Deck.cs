@@ -6,6 +6,8 @@ public class Deck : MonoBehaviour
 {
     public List<GameObject> draw_deck;
     public bool ready = false;
+
+
     void Start()
     {
         Vector3 deck_position = gameObject.GetComponent<Transform>().position;
@@ -106,16 +108,20 @@ public class Deck : MonoBehaviour
         ready = true;
         Debug.Log("Deck made");
     }
-    
+
+
     public GameObject Draw(Player a) {
         int random_num = Random.Range(0, draw_deck.Count);
         GameObject drawn_card = draw_deck[random_num];
         draw_deck.RemoveAt(random_num);
         return drawn_card;
     }
+
+
     private void OnMouseUpAsButton() {
 	}
-    void Update()
-    {
+
+
+    void Update(){
     }
 }

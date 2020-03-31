@@ -8,15 +8,23 @@ public class Fumble : Continuation_Card
     {
         
     }
+
+
     protected override void Play() {
         owner.table.Skip();
         AdvanceTurn();
     }
+
+
 	public override void Show() {
         gameObject.GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>("Cards/fumble");
     }
+
+
     void Update()
     {
         
     }
+
+
 }

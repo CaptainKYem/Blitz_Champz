@@ -8,11 +8,17 @@ public class Tackle : Defensive_Card
     {
         run = true;
     }
+
+
 	public override void Show() {
         gameObject.GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>("Cards/tackle");
     }
+
+
     void Update()
     {
         
     }
+
+
 }

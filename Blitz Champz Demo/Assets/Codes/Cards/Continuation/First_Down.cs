@@ -9,17 +9,25 @@ public class First_Down : Continuation_Card
     {
         
     }
+
+
     protected override void Play() {
         owner.Draw();
         owner.Draw();
         AdvanceTurn();
     }
+
+
 	public override void Show() {
         gameObject.GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>("Cards/first_down");
     }
+
+
     // Update is called once per frame
     void Update()
     {
         
     }
+
+
 }

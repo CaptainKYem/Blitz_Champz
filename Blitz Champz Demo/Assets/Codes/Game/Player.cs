@@ -11,6 +11,8 @@ public class Player : MonoBehaviour {
 	public bool right = false;
 	public bool up = false;
 	public bool valid = true;
+
+
 	void Start () {
 		score = 0;
 		if (this.transform.position.x > 0) {
@@ -21,6 +23,8 @@ public class Player : MonoBehaviour {
 			gameObject.transform.rotation = Quaternion.Euler(0,0,180f);
 		}
 	}
+
+
 	public int UpdateScore() {
 		score = 0;
 		foreach (GameObject card in field) {
@@ -32,6 +36,8 @@ public class Player : MonoBehaviour {
 		}
 		return score;
 	}
+
+
 	public void Draw() {
 		Deck draw_deck = table.draw_deck;
 		if (draw_deck.draw_deck.Count > 0 && table.current_player == this) {
@@ -42,10 +48,13 @@ public class Player : MonoBehaviour {
 		OrderCards();
 	}
 
+
 	public void Remove(GameObject card) {
 		field.Remove(card);
 		hand.Remove(card);
 	}
+
+
 	public void StackCards() {
 		for (int i = 0; i < hand.Count; i++) {
 			hand[i].transform.position = gameObject.transform.position;
@@ -54,6 +63,8 @@ public class Player : MonoBehaviour {
 		}
 		OrderField();
 	}
+
+
 	public void OrderField() {
 		for (int i = 0; i < field.Count; i++) {
 			field[i].transform.position = gameObject.transform.position;
@@ -71,6 +82,8 @@ public class Player : MonoBehaviour {
 			}
 		}
 	}
+
+
 	public void OrderCards() {
 		if (CheckValid() == false) {
 			Debug.Log("No valid cards. Discard please.");
@@ -99,6 +112,8 @@ public class Player : MonoBehaviour {
 		}
 		OrderField();
 	}
+
+
 	protected bool CheckValid() {
 		bool temp_valid = false;
 		for (int i = 0; i < hand.Count; i++) {
@@ -109,6 +124,8 @@ public class Player : MonoBehaviour {
 		valid = temp_valid;
 		return temp_valid;
 	}
+
+
 	public bool StopWin() {
 		bool canStop = false;
 		foreach (GameObject a in hand) {
@@ -130,9 +147,15 @@ public class Player : MonoBehaviour {
 		}
 		return canStop;
 	}
+
+
 	public bool GetValid() {
 		return valid;
 	}
+
+
 	void Update () {
 	}
+
+
 }

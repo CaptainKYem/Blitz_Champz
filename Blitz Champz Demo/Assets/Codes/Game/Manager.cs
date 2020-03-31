@@ -5,6 +5,8 @@ using UnityEngine;
 public static class Manager
 {
     private static int player_count;
+
+
     public static int PlayerCount {
         get {
             return player_count;
@@ -13,4 +15,6 @@ public static class Manager
             player_count = value;
         }
     }
+
+
 }
