@@ -25,6 +25,8 @@ public class Table : MonoBehaviour
     private bool ready = true;
     LinkedListNode<Player> current;
     public LinkedList<Player> order = new LinkedList<Player>();
+
+
     void Start() {
         player_count = Manager.PlayerCount;
         Create_Deck();
@@ -33,22 +35,29 @@ public class Table : MonoBehaviour
         current_player = player1;
         StartCoroutine(Wait_For_Deck());
     }
+
+
     public void Discard(GameObject card) {
         card.GetComponent<SpriteRenderer>().sortingOrder = discard.Count;
         discard.Add(card);
     }
+
+
     private void Create_Players() {
         GameObject player = Resources.Load("Prefabs/player") as GameObject;
+
         if (player_count > 1) {
             GameObject player1_object = Instantiate(player, new Vector3(-8f, -4.4f, 1f), transform.rotation);
             player1 = player1_object.GetComponent<Player>();
             player1.table = this;
+
             GameObject player2_object = Instantiate(player, new Vector3(-8f, 3.4f, 1f), transform.rotation);
             player2 = player2_object.GetComponent<Player>();
             player2.table = this;
             order.AddLast(player1);
             order.AddLast(player2);
         }
+
         if (player_count > 2) {
             GameObject player3_object = Instantiate(player, new Vector3(8f, 3.4f, 1f), transform.rotation);
             player3 = player3_object.GetComponent<Player>();
@@ -56,6 +65,7 @@ public class Table : MonoBehaviour
             order.AddLast(player3);
             p3.gameObject.SetActive(true);
         }
+
         if (player_count == 4) {
             GameObject player4_object = Instantiate(player, new Vector3(8f, -4.4f, 1f), transform.rotation);
             player4 = player4_object.GetComponent<Player>();
@@ -64,11 +74,15 @@ public class Table : MonoBehaviour
             p4.gameObject.SetActive(true);
         }
     }
+
+
     IEnumerator Wait_For_Deck() {
         yield return new WaitUntil(() => draw_deck.draw_deck.Count == 100);
         Debug.Log("Deck == 100 " + draw_deck.draw_deck.Count);
         initial_deal();
     }
+
+
     private void Create_Deck() {
         Debug.Log("Deck start");
         GameObject deck = Resources.Load("Prefabs/deck") as GameObject;
@@ -76,6 +90,8 @@ public class Table : MonoBehaviour
         draw_deck = new_deck.GetComponent<Deck>();
         Debug.Log("Deck done");
     }
+
+
     public void initial_deal() {
         Debug.Log("Dealing start");
         Debug.Log(draw_deck.draw_deck.Count);
@@ -86,9 +102,13 @@ public class Table : MonoBehaviour
         AdvanceTurn();
         Debug.Log("Dealing done");
     }
+
+
     public void AdvanceTurn() {
         StartCoroutine(NextPlayer());
     }
+
+
     IEnumerator NextPlayer() {
         current_player.StackCards();
         if (reversed) {
@@ -101,6 +121,8 @@ public class Table : MonoBehaviour
         yield return new WaitUntil(() => ready);
         Update_Scores();
     }
+
+
     public void Skip() {
         current_player.StackCards();
         if (reversed) {
@@ -109,38 +131,55 @@ public class Table : MonoBehaviour
             current = current.Next ?? current.List.First;
         }
     }
+
+
     public void Reverse() {
         reversed = !reversed;
     }
+
+
     private void Update_Scores() {
         p1.text = player1.UpdateScore().ToString();
         p2.text = player2.UpdateScore().ToString();
+
         if (player3) {
             p3.text = player3.UpdateScore().ToString();
         }
+
         if (player4) {
             p4.text = player4.UpdateScore().ToString();
         }
+
         if (player1.score >= 21 && !current_player.StopWin()) {
             gameOver.SetActive(true);
             gameOver.GetComponentInChildren<TextMeshProUGUI>().text = "Player 1 wins!";
         }
+
         else if (player2.score >= 21 && !current_player.StopWin()) {
             gameOver.SetActive(true);
             gameOver.GetComponentInChildren<TextMeshProUGUI>().text = "Player 2 wins!";
         }
+
         else if (player3 && player3.score >= 21 && !current_player.StopWin()) {
             gameOver.SetActive(true);
             gameOver.GetComponentInChildren<TextMeshProUGUI>().text = "Player 3 wins!";
         }
+
         else if (player4 && player4.score >= 21 && !current_player.StopWin()) {
             gameOver.SetActive(true);
             gameOver.GetComponentInChildren<TextMeshProUGUI>().text = "Player 4 wins!";
         }
+
     }
+
+
     public void SetReady(bool a) {
         ready = a;
     }
+
+
     void Update() {
     }
+
+
 }
