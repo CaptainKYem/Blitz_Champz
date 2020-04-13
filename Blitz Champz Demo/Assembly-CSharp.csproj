@@ -80,6 +80,7 @@
      <Compile Include="Assets\Codes\Game\Table.cs" />
      <Compile Include="Assets\Codes\Menus\GameOver.cs" />
      <Compile Include="Assets\Codes\Menus\MainMenu.cs" />
+     <Compile Include="Assets\HoverBounce.cs" />
      <Compile Include="Assets\Main menu\ClickToLoadMenu.cs" />
      <None Include="Assets\TextMesh Pro\Resources\Shaders\TMPro.cginc" />
      <None Include="Assets\TextMesh Pro\Resources\Shaders\TMP_SDF-Mobile Overlay.shader" />
