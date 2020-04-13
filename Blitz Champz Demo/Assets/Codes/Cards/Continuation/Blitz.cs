@@ -5,8 +5,6 @@ using UnityEngine;
 public class Blitz : Continuation_Card
 {
     private bool played = false;
-    //Get the AudioSource for each Offensive card
-	private AudioSource source;
     void Start()
     {
         
@@ -27,10 +25,6 @@ public class Blitz : Continuation_Card
         return false;
     }
     protected override void Play() {
-        //When the card is played, play the sound attached to it
-		//Currently, Blitz causes the stolen card to play its sound again
-		source = GetComponent<AudioSource>();
-		source.Play();
         StartCoroutine(SelectCard());
     }
     IEnumerator SelectCard() {
