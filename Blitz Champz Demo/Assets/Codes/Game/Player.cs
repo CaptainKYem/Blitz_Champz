@@ -13,8 +13,9 @@ public class Player : MonoBehaviour {
 	public bool valid = true;
 	//animation
     public float speed = 1f;
-    private Vector3 target;
-    private Vector3 position;
+    private Vector3 toTable;
+    private Vector3 fromHand;
+
 	void Start () {
 		score = 0;
 		if (this.transform.position.x > 0) {
@@ -50,6 +51,7 @@ public class Player : MonoBehaviour {
 		field.Remove(card);
 		hand.Remove(card);
 	}
+
 	public void StackCards() {
 		for (int i = 0; i < hand.Count; i++) {
 			hand[i].transform.position = gameObject.transform.position;
@@ -57,7 +59,10 @@ public class Player : MonoBehaviour {
 			hand[i].GetComponent<BoxCollider>().enabled = false;
 		}
 		OrderField();
+		
 	}
+
+    //Deals with where the players cards go once they leave the hand
 	public void OrderField() {
 		for (int i = 0; i < field.Count; i++) {
 			field[i].transform.position = gameObject.transform.position;
@@ -68,15 +73,21 @@ public class Player : MonoBehaviour {
 				//This determines the card's final position on the board
 				field[i].transform.position = transform.position + adjustment + Vector3.Scale(transform.up, new Vector3(0, 2.5f, 0));
 				field[i].transform.rotation = Quaternion.Euler(0,0,-90f);
+				
 			} else {
 				field[i].GetComponent<SpriteRenderer>().sortingOrder = i;
+                //ThIS determines the stack of the offensive cards
 				Vector3 adjustment = new Vector3(1.75f + 0.25f * i, 0, 2 * (field.Count - i));
+				
 				//This determines the card's final position on the board
 				field[i].transform.position = transform.position + adjustment + Vector3.Scale(transform.up, new Vector3(0, 2.5f, 0));
 				field[i].transform.rotation = Quaternion.Euler(0,0,90f);
+				
 			}
 		}
 	}
+
+
 	public void OrderCards() {
 		if (CheckValid() == false) {
 			Debug.Log("No valid cards. Discard please.");
@@ -85,6 +96,8 @@ public class Player : MonoBehaviour {
 			for (int i = 0; i < hand.Count; i++) {
 				Vector3 adjustment = new Vector3(-1 * 0.5f * i, 0.0f, 0.0f);
 				hand[i].GetComponent<SpriteRenderer>().sortingOrder = 2 * i;
+				
+
 				hand[i].GetComponent<Transform>().position = gameObject.transform.position + adjustment + new Vector3(0f, 0f, 2 * (hand.Count - i));
 				hand[i].GetComponent<BoxCollider>().enabled = true;
 				if (this == table.current_player) {
@@ -96,6 +109,8 @@ public class Player : MonoBehaviour {
 			for (int i = 0; i < hand.Count; i++) {
 				Vector3 adjustment = new Vector3(0.5f * i, 0.0f, 0.0f);
 				hand[i].GetComponent<SpriteRenderer>().sortingOrder = 2 * (hand.Count - i);
+
+				
 				hand[i].GetComponent<Transform>().position = gameObject.transform.position + adjustment + new Vector3(0f, 0f, 2 * i);
 				hand[i].GetComponent<BoxCollider>().enabled = true;
 				if (this == table.current_player) {
@@ -105,6 +120,7 @@ public class Player : MonoBehaviour {
 		}
 		OrderField();
 	}
+
 	protected bool CheckValid() {
 		bool temp_valid = false;
 		for (int i = 0; i < hand.Count; i++) {
@@ -140,6 +156,7 @@ public class Player : MonoBehaviour {
 		return valid;
 	}
 	void Update () {
+		MoveTo();
 	}
 
 	 //MoveTo Coroutine
@@ -149,12 +166,12 @@ public class Player : MonoBehaviour {
 
         // This looks unsafe, but Unity uses
         // en epsilon when comparing vectors.
-        while (transform.position != target)
+        while (fromHand != toTable)
         {
-            Debug.Log("Got to 4 loop");
-            transform.position = Vector3.MoveTowards(
-                transform.position,
-                target,
+            Debug.Log("Got to fooorrrr loop");
+			fromHand = Vector3.MoveTowards(
+				fromHand,
+                toTable,
                 speed);
             // Wait a frame and move again.
             yield return null;

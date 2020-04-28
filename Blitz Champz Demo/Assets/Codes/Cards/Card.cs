@@ -50,6 +50,8 @@ public class Card : MonoBehaviour {
 			this.Discard();
 		}
 	}
+
+    //This relates to the cards in your hand
 	void OnMouseEnter() {
 		if (owner != null && owner == owner.table.current_player) {
 			if (owner.hand.Contains(gameObject)) {
@@ -87,6 +89,8 @@ public class Card : MonoBehaviour {
 			}
 		}
 	}
+
+	//This relates to the cards in your hand
 	void OnMouseExit() {
 		if (owner != null && owner == owner.table.current_player) {
 			if (owner.hand.Contains(gameObject)) {
