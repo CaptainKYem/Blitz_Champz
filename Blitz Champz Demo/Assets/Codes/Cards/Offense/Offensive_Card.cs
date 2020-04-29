@@ -37,26 +37,24 @@ public class Offensive_Card : Card {
 	public bool GetRun() {
 		return run;
 	}
+
+    //Gets called for the offensive called from the onMouseButtonClicked()
 	protected override void Play() {
 		
 		
 		owner.field.Add(gameObject);
 		owner.hand.Remove(gameObject);
 		
-		//position = gameObject.transform.position;
+		
 		for (int i = 0; i < field.Count; i++)
 		{
 			field[i].transform.position = gameObject.transform.position;
-            
 			field[i].GetComponent<SpriteRenderer>().color = Color.white;
 			if (right)
 			{
 				field[i].GetComponent<SpriteRenderer>().sortingOrder = i;
 				adjuster = new Vector3(-1.75f + -1 * 0.25f * i, 0, 2 * (field.Count - i));
-				
-				
-				
-                
+				//Handles the orientation of the card
 				field[i].transform.rotation = Quaternion.Euler(0, 0, -90f);
                 
                 
@@ -65,15 +63,19 @@ public class Offensive_Card : Card {
 			{
 				field[i].GetComponent<SpriteRenderer>().sortingOrder = i;
 				adjuster = new Vector3(1.75f + 0.25f * i, 0, 2 * (field.Count - i));
+				//Handles the orientation of the card
 				field[i].transform.rotation = Quaternion.Euler(0, 0, 90f);
 
 			}
 		}
+        //Gets used for the moveTo() to place into position from hand
 		tableTarget = gameObject.transform.position + adjuster + Vector3.Scale(transform.up, new Vector3(0, 2.5f, 0));
 		StartCoroutine(moveTo());
-		
+
+        //Deals with sound
 		source = GetComponent<AudioSource>();
 		source.Play();
+
 		owner.table.last_card = this;
 		for (int i = 0; i < owner.hand.Count; i++) {
 			owner.hand[i].GetComponent<SpriteRenderer>().color = Color.white;
@@ -82,42 +84,57 @@ public class Offensive_Card : Card {
 		Show();
 		AdvanceTurn();
 	}
-	public int GetValue() {
+
+
+	//Returns the specific value from the card that is played
+	public int GetValue()
+	{
 		return value;
 	}
-	public void Remove() { //remove card from the field and discard it thus removing points from that player
+
+
+
+	//remove card from the field and discard it thus removing points from that player
+	public void Remove()
+	{
 		owner.UpdateScore();
 		//Animation for discard
 		target = new Vector3(-1.45f, 0f, 0f);
-        position = gameObject.transform.position;
+		position = gameObject.transform.position;
 		StartCoroutine(discardTo());
 		Discard();
 	}
-	private void OnMouseUpAsButton() {
-		if (owner != null && owner.table.current_player == owner) {
+
+
+
+	//When the offensive card is clicked by the mouse, it will execute the play()
+	private void OnMouseUpAsButton()
+	{
+		if (owner != null && owner.table.current_player == owner)
+		{
 			this.Play();
 		}
 	}
+
 
 	//Deals with where the players cards go once they leave the hand
 	public void OrderField()
 	{
 		for (int i = 0; i < field.Count; i++)
-		{	
-
+		{
 			field[i].transform.position = gameObject.transform.position;
-            
 			field[i].GetComponent<SpriteRenderer>().color = Color.white;
+
 			if (right)
 			{
 				field[i].GetComponent<SpriteRenderer>().sortingOrder = i;
 				Vector3 adjustment = new Vector3(-1.75f + -1 * 0.25f * i, 0, 2 * (field.Count - i));
+
 				//This determines the card's final position on the board
-				
 				field[i].transform.position = transform.position + adjustment + Vector3.Scale(transform.up, new Vector3(0, 2.5f, 0));
-                
+				//Handles the orientation of the card
 				field[i].transform.rotation = Quaternion.Euler(0, 0, -90f);
-                
+
 			}
 			else
 			{
@@ -126,8 +143,8 @@ public class Offensive_Card : Card {
 				Vector3 adjustment = new Vector3(1.75f + 0.25f * i, 0, 2 * (field.Count - i));
 
 				//This determines the card's final position on the board
-				
 				field[i].transform.position = transform.position + adjustment + Vector3.Scale(transform.up, new Vector3(0, 2.5f, 0));
+				//Handles the orientation of the card
 				field[i].transform.rotation = Quaternion.Euler(0, 0, 90f);
 
 			}
@@ -135,34 +152,32 @@ public class Offensive_Card : Card {
 	}
 
 
+
 	void Update () {
 	}
 
-	 IEnumerator discardTo()
-    {
-       
-
-        // This looks unsafe, but Unity uses
-        // en epsilon when comparing vectors.
-        while (transform.position != target)
-        {
-            Debug.Log("Got to 4 loop");
-            transform.position = Vector3.MoveTowards(
-                transform.position,
-                target,
-                speed);
-            // Wait a frame and move again.
-            yield return null;
-        }
-    }
+	//This handles the movement from the current position to the the discard pile
+	IEnumerator discardTo()
+	{
+		//While our object hasn't reach the target from its current position
+		while (transform.position != target)
+		{
+			Debug.Log("Got to 4 loop");
+			transform.position = Vector3.MoveTowards(
+				transform.position,
+				target,
+				speed);
+			// Wait a frame and move again.
+			yield return null;
+		}
+	}
 
 
+
+	//This handles the movement from the offensive card, to the table and its location
 	IEnumerator moveTo()
 	{
-
-
-		// This looks unsafe, but Unity uses
-		// en epsilon when comparing vectors.
+		//While our object hasn't reach the target from its current position
 		while (transform.position != tableTarget)
 		{
 			Debug.Log("Got to 4 loop");
@@ -175,4 +190,5 @@ public class Offensive_Card : Card {
 		}
 		owner.OrderField();
 	}
+
 }

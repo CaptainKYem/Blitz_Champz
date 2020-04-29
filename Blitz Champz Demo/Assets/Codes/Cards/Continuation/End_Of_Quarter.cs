@@ -11,12 +11,16 @@ public class End_Of_Quarter : Continuation_Card
     public float speed = .5f;
     private Vector3 target;
     private Vector3 position;
+
+
     // Start is called before the first frame update
     void Start()
     {
         target = new Vector3(-1.45f, 0f, 0f);
         position = gameObject.transform.position;
     }
+
+
     protected override void Play() {
         StartCoroutine(MoveTo());
         owner.table.Reverse();
@@ -25,14 +29,20 @@ public class End_Of_Quarter : Continuation_Card
 		source.Play();
         AdvanceTurn();
     }
+
+
 	public override void Show() {
         gameObject.GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>(spriteName);
     }
+
+
     // Update is called once per frame
     void Update()
     {
         
     }
+
+
     //MoveTo Coroutine
      IEnumerator MoveTo()
     {
