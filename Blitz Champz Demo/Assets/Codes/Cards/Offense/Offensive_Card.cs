@@ -16,6 +16,7 @@ public class Offensive_Card : Card {
     public Vector3 position;
 
 	private Vector3 tableTarget;
+	private Vector3 adjuster;
 	
 
 	public List<GameObject> field;
@@ -40,9 +41,24 @@ public class Offensive_Card : Card {
 		
 		position = gameObject.transform.position;
 		
-		owner.hand.Remove(gameObject);
 		owner.field.Add(gameObject);
-		target = gameObject.transform.position + new Vector3(0, 2.5f, 0);
+		owner.hand.Remove(gameObject);
+		for (int i = 0; i < field.Count; i++)
+		{
+			if (right)
+			{
+				field[i].GetComponent<SpriteRenderer>().sortingOrder = i;
+				adjuster = new Vector3(-1.75f + -1 * 0.25f * i, 0, 2 * (field.Count - i));
+                
+			}
+			else
+			{
+				field[i].GetComponent<SpriteRenderer>().sortingOrder = i;
+				adjuster = new Vector3(1.75f + 0.25f * i, 0, 2 * (field.Count - i));
+
+			}
+		}
+		tableTarget = transform.position + adjuster + Vector3.Scale(transform.up, new Vector3(0, 2.5f, 0));
 		
 		StartCoroutine(moveTo());
 		
@@ -142,7 +158,7 @@ public class Offensive_Card : Card {
 			Debug.Log("Got to 4 loop");
 			transform.position = Vector3.MoveTowards(
 				transform.position,
-				target,
+				tableTarget,
 				speed);
 			// Wait a frame and move again.
 			yield return null;
