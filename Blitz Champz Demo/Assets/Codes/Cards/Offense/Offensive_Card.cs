@@ -39,27 +39,37 @@ public class Offensive_Card : Card {
 	}
 	protected override void Play() {
 		
-		position = gameObject.transform.position;
 		
 		owner.field.Add(gameObject);
 		owner.hand.Remove(gameObject);
+		
+		//position = gameObject.transform.position;
 		for (int i = 0; i < field.Count; i++)
 		{
+			field[i].transform.position = gameObject.transform.position;
+            
+			field[i].GetComponent<SpriteRenderer>().color = Color.white;
 			if (right)
 			{
 				field[i].GetComponent<SpriteRenderer>().sortingOrder = i;
 				adjuster = new Vector3(-1.75f + -1 * 0.25f * i, 0, 2 * (field.Count - i));
+				
+				
+				
+                
+				field[i].transform.rotation = Quaternion.Euler(0, 0, -90f);
+                
                 
 			}
 			else
 			{
 				field[i].GetComponent<SpriteRenderer>().sortingOrder = i;
 				adjuster = new Vector3(1.75f + 0.25f * i, 0, 2 * (field.Count - i));
+				field[i].transform.rotation = Quaternion.Euler(0, 0, 90f);
 
 			}
 		}
-		tableTarget = transform.position + adjuster + Vector3.Scale(transform.up, new Vector3(0, 2.5f, 0));
-		
+		tableTarget = gameObject.transform.position + adjuster + Vector3.Scale(transform.up, new Vector3(0, 2.5f, 0));
 		StartCoroutine(moveTo());
 		
 		source = GetComponent<AudioSource>();
@@ -163,5 +173,6 @@ public class Offensive_Card : Card {
 			// Wait a frame and move again.
 			yield return null;
 		}
+		owner.OrderField();
 	}
 }
