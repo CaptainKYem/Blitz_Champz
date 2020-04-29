@@ -10,7 +10,7 @@ public class Player : Offensive_Card{
 	public Table table;
 	
 	//animation
-    public float speed = 1f;
+    //public float speed = 1f;
     private Vector3 toTable;
     private Vector3 fromHand;
 

@@ -12,10 +12,11 @@ public class Offensive_Card : Card {
 
 	//Animation parameters
 	public float speed = 1f;
-    private Vector3 target;
-    private Vector3 position;
+    public Vector3 target;
+    public Vector3 position;
 
 	private Vector3 tableTarget;
+	
 
 	public List<GameObject> field;
 	public bool right = false;
@@ -36,18 +37,15 @@ public class Offensive_Card : Card {
 		return run;
 	}
 	protected override void Play() {
-
-		//possible transformation here
-		//target = gameObject.transform.position;
-		target = new Vector3(-5.45f, 0f, 0f);
 		
-
-
-		owner.field.Add(gameObject);
-		StartCoroutine(moveTo());
+		position = gameObject.transform.position;
+		
 		owner.hand.Remove(gameObject);
-		//When the card is played, play the sound attached to it
-		//Currently, this sound plays again when it is stolen with a Blitz card
+		owner.field.Add(gameObject);
+		target = gameObject.transform.position + new Vector3(0, 2.5f, 0);
+		
+		StartCoroutine(moveTo());
+		
 		source = GetComponent<AudioSource>();
 		source.Play();
 		owner.table.last_card = this;
@@ -79,7 +77,8 @@ public class Offensive_Card : Card {
 	public void OrderField()
 	{
 		for (int i = 0; i < field.Count; i++)
-		{
+		{	
+
 			field[i].transform.position = gameObject.transform.position;
             
 			field[i].GetComponent<SpriteRenderer>().color = Color.white;
