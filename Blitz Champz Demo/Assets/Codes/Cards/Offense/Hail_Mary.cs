@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Hail_Mary : Offensive_Card
 {
-    // Start is called before the first frame update
+    //Sets the points it can give and its ability
     void Start()
     {
         value = 8;
@@ -12,6 +12,8 @@ public class Hail_Mary : Offensive_Card
 		pass = false;
 		run = false;        
     }
+
+    //shows the card
     public override void Show() {
         gameObject.GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>("Cards/hail_mary");
     }

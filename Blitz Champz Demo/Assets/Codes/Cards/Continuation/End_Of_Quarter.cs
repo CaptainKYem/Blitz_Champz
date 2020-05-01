@@ -16,11 +16,12 @@ public class End_Of_Quarter : Continuation_Card
     // Start is called before the first frame update
     void Start()
     {
+        //gives variables its coordinates to go from its current position from hand to its target discard pile
         target = new Vector3(-1.45f, 0f, 0f);
         position = gameObject.transform.position;
     }
 
-
+    //When card is played, activate the animation and then reverse the turn
     protected override void Play() {
         StartCoroutine(MoveTo());
         owner.table.Reverse();
@@ -30,7 +31,7 @@ public class End_Of_Quarter : Continuation_Card
         AdvanceTurn();
     }
 
-
+    //Show the card
 	public override void Show() {
         gameObject.GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>(spriteName);
     }
@@ -43,7 +44,7 @@ public class End_Of_Quarter : Continuation_Card
     }
 
 
-    //MoveTo Coroutine
+    //Handles the ability to move the card from the hand to its target position
      IEnumerator MoveTo()
     {
        

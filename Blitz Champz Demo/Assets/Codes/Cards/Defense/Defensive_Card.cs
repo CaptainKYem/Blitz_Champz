@@ -13,20 +13,31 @@ public class Defensive_Card : Card {
     public Vector3 target;
     public Vector3 position;
 
+
 	void Start () {
 	}
+
+
 	public void SetPlayed(bool a) {
 		win_played = a;
 	}
+
+	//checks if previous card played onto the board was a kick
 	public bool GetKick() {
 		return kick;
 	}
+
+    //checks if previous card played onto the board was a pass
 	public bool GetPass() {
 		return pass;
 	}
+
+	//checks if previous card played onto the board was a run
 	public bool GetRun() {
 		return run;
 	}
+
+	//Ativates sound,movement, and removing the offensive card that was last played by the previous player
 	protected override void Play() {
 		owner.table.last_card.Remove();
 		//When the card is played, play the sound attached to it
@@ -35,6 +46,8 @@ public class Defensive_Card : Card {
 		StartCoroutine(MoveTo());
 		AdvanceTurn();
 	}
+
+    //Works the same as Card.cs onMouseUpAsButton()
 	private void OnMouseUpAsButton() {
 		if (owner != null && owner.table.current_player == owner) {
             if (CheckValid()) {
@@ -50,6 +63,8 @@ public class Defensive_Card : Card {
             }
 		}
 	}
+
+    //Checks if the last card played was valid to use one of the defensive cards
 	public override bool CheckValid() {
 		if(owner.table.last_card){
 			if (owner.table.last_card.GetPass() == true && pass == true) {
@@ -73,7 +88,7 @@ public class Defensive_Card : Card {
 		
 	}
 
-	 //MoveTo Coroutine
+	 //gives card the ability to move from point A to B
      IEnumerator MoveTo()
     {
        

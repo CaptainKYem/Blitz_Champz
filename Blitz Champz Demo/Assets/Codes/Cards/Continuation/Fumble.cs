@@ -10,11 +10,16 @@ public class Fumble : Continuation_Card
     public float speed = .5f;
     private Vector3 target;
     private Vector3 position;
+
+    // Start is called before the first frame update
     void Start()
     {
+        //gives variables its coordinates to go from its current position from hand to its target discard pile
         target = new Vector3(-1.45f, 0f, 0f);
         position = gameObject.transform.position;
     }
+
+    //When card is played, activate the animation and use the skip method
     protected override void Play() {
         StartCoroutine(MoveTo());
         owner.table.Skip();
@@ -23,14 +28,20 @@ public class Fumble : Continuation_Card
 		source.Play();
         AdvanceTurn();
     }
+
+
 	public override void Show() {
         gameObject.GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>("Cards/fumble");
     }
+
+
     void Update()
     {
         
     }
-    //MoveTo Coroutine
+
+
+    //Animation code to move from hand to target position
      IEnumerator MoveTo()
     {
        

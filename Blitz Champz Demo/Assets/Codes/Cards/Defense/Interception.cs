@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class Interception : Defensive_Card
 {
+    //gives defensive card interception its property
     void Start()
     {
         pass = true;
@@ -11,7 +12,9 @@ public class Interception : Defensive_Card
 		target = new Vector3(-1.45f, 0f, 0f);
         position = gameObject.transform.position;
     }
-	public override void Show() {
+
+    //Shows the card
+    public override void Show() {
         gameObject.GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>("Cards/interception");
     }
     void Update()

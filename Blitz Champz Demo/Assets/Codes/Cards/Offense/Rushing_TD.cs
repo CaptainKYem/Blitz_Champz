@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Rushing_TD : Offensive_Card
 {
-    // Start is called before the first frame update
+    //Sets the points it can give and its ability
     void Start()
     {
         value = 6;
@@ -12,6 +12,8 @@ public class Rushing_TD : Offensive_Card
 		pass = false;
 		run = true; 
     }
+
+    //shows the card
 	public override void Show() {
         gameObject.GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>("Cards/rushing_td");
     }

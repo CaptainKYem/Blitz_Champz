@@ -11,14 +11,22 @@ public class Blitz : Continuation_Card
     public float speed = .5f;
     private Vector3 target;
     private Vector3 position;
+
+    // Start is called before the first frame update
     void Start()
     {
+        //Gives animation variable its values
         target = new Vector3(-1.45f, 0f, 0f);
         position = gameObject.transform.position;
     }
+
+
     public void SetPlayed(bool a) {
 		win_played = a;
 	}
+
+
+    //Checks if the card is a valid move
     public override bool CheckValid() {
         foreach (Player a in owner.table.order) {
             if (a != owner) {
@@ -31,13 +39,17 @@ public class Blitz : Continuation_Card
         valid = false;
         return false;
     }
+
+    //When card is played, activate the SelectCard() method
     protected override void Play() {
         //When the card is played, play the sound attached to it
 		//Currently, Blitz causes the stolen card to play its sound again
         StartCoroutine(SelectCard());
     }
+
+    
     IEnumerator SelectCard() {
-        
+        //Focuses on playing sound
 		source = GetComponent<AudioSource>();
 		source.Play();
         bool losing = false;
@@ -109,6 +121,8 @@ public class Blitz : Continuation_Card
         owner.table.SetReady(true);
         this.Discard();
     }
+
+    //This does the same thing as Card.cs onMouseUpAsButton() but for the blitz
     private void OnMouseUpAsButton() {
 		bool canPlay = CheckValid();
         if (owner != null && owner.table.current_player == owner) {
@@ -125,6 +139,8 @@ public class Blitz : Continuation_Card
             }
 		}
 	}
+
+    //This does the same thing as Card.cs onMouseExit() but for the blitz
     void OnMouseExit() {
 		if (owner != null && owner == owner.table.current_player && !played) {
 			if (owner.hand.Contains(gameObject)) {
@@ -145,9 +161,13 @@ public class Blitz : Continuation_Card
 			}
 		}
 	}
+
+    //shows the card
 	public override void Show() {
         gameObject.GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>("Cards/blitz");
     }
+
+    //moves the card to the disacrd pile and activates the MoveTo method to accomplish that.
     public new void Discard () {
 		if (this.owner != null) {
 			for (int i = 0; i < owner.hand.Count; i++) {
@@ -165,10 +185,14 @@ public class Blitz : Continuation_Card
 			Show();
 		}
 	}
+
+
     void Update()
     {
     }
-    //MoveTo Coroutine
+
+
+    //Handles the movement of the card from its current posittion, hand, to its target position which is discard pile
      IEnumerator MoveTo()
     {
        

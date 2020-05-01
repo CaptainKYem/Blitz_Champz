@@ -1,28 +1,11 @@
 ﻿<Properties>
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Codes/Cards/Continuation/End_Of_Quarter.cs">
-    <Files>
-      <File FileName="Assets/Codes/Game/Manager.cs" Line="12" Column="14" />
-      <File FileName="Assets/Codes/Cards/Continuation/Fumble.cs" Line="32" Column="6" />
-      <File FileName="Assets/Codes/Cards/Offense/Offensive_Card.cs" Line="17" Column="1" />
-      <File FileName="Assets/Codes/Cards/Card.cs" Line="36" Column="4" />
-      <File FileName="Assets/Codes/Cards/Continuation/End_Of_Quarter.cs" Line="22" Column="31" />
-    </Files>
+  <MonoDevelop.Ide.Workbench>
     <Pads>
       <Pad Id="ProjectPad">
         <State name="__root__">
-          <Node name="Blitz Champz" expanded="True">
+          <Node name="Blitz Champz" expanded="True" selected="True">
             <Node name="Assembly-CSharp" expanded="True">
-              <Node name="Assets" expanded="True">
-                <Node name="Codes" expanded="True">
-                  <Node name="Cards" expanded="True">
-                    <Node name="Continuation" expanded="True">
-                      <Node name="End_Of_Quarter.cs" selected="True" />
-                    </Node>
-                    <Node name="Offense" expanded="True" />
-                  </Node>
-                  <Node name="Game" expanded="True" />
-                </Node>
-              </Node>
+              <Node name="Assets" expanded="True" />
             </Node>
           </Node>
         </State>

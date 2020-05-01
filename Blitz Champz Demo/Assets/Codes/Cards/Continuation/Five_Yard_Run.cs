@@ -10,10 +10,15 @@ public class Five_Yard_Run : Continuation_Card
     public float speed = .5f;
     private Vector3 target;
     private Vector3 position;
+
+    // Start is called before the first frame update
     void Start() {
+        //gives variables its coordinates to go from its current position from hand to its target discard pile
         target = new Vector3(-1.45f, 0f, 0f);
         position = gameObject.transform.position;
     }
+
+    //When card is played, activate the animation and draw a card
     protected override void Play() {
         StartCoroutine(MoveTo());
         owner.Draw();
@@ -22,12 +27,18 @@ public class Five_Yard_Run : Continuation_Card
 		source.Play();
         AdvanceTurn();
     }
+
+    //shows the card
 	public override void Show() {
         gameObject.GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>("Cards/5_yard_run");
     }
+
+
     void Update() {       
     }
-    //MoveTo Coroutine
+
+
+    //Handles the movement from hand to its target position
      IEnumerator MoveTo()
     {
        

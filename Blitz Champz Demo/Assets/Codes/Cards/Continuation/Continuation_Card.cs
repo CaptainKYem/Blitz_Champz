@@ -7,6 +7,8 @@ public class Continuation_Card : Card {
 	void Start () {
 		
 	}
+
+    //Advances the turn when played
 	protected override void Play() {
 		AdvanceTurn();
 	}

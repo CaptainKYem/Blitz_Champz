@@ -25,6 +25,10 @@ public class Table : MonoBehaviour
     private bool ready = true;
     LinkedListNode<Player> current;
     public LinkedList<Player> order = new LinkedList<Player>();
+
+
+
+    //Deals with starting the game by creating the deck, and the players
     void Start() {
         player_count = Manager.PlayerCount;
         Create_Deck();
@@ -33,12 +37,19 @@ public class Table : MonoBehaviour
         current_player = player1;
         StartCoroutine(Wait_For_Deck());
     }
+
+
+    //Deals with taking the card to the discard pile
     public void Discard(GameObject card) {
         card.GetComponent<SpriteRenderer>().sortingOrder = discard.Count;
         discard.Add(card);
     }
+
+
+    //Creates the players with their locations on the board based on how many are selected from the menu
     private void Create_Players() {
         GameObject player = Resources.Load("Prefabs/player") as GameObject;
+        //If 2 players are selected
         if (player_count > 1) {
             GameObject player1_object = Instantiate(player, new Vector3(-8f, -4.4f, 1f), transform.rotation);
             player1 = player1_object.GetComponent<Player>();
@@ -49,6 +60,7 @@ public class Table : MonoBehaviour
             order.AddLast(player1);
             order.AddLast(player2);
         }
+        //if 3 players are selected
         if (player_count > 2) {
             GameObject player3_object = Instantiate(player, new Vector3(8f, 3.4f, 1f), transform.rotation);
             player3 = player3_object.GetComponent<Player>();
@@ -56,6 +68,7 @@ public class Table : MonoBehaviour
             order.AddLast(player3);
             p3.gameObject.SetActive(true);
         }
+        //if 4 players are selected
         if (player_count == 4) {
             GameObject player4_object = Instantiate(player, new Vector3(8f, -4.4f, 1f), transform.rotation);
             player4 = player4_object.GetComponent<Player>();
@@ -64,11 +77,17 @@ public class Table : MonoBehaviour
             p4.gameObject.SetActive(true);
         }
     }
+
+
+    //Deals with waiting for the deck to reach an amount of cards
     IEnumerator Wait_For_Deck() {
         yield return new WaitUntil(() => draw_deck.draw_deck.Count == 100);
         Debug.Log("Deck == 100 " + draw_deck.draw_deck.Count);
         initial_deal();
     }
+
+
+    //Creates the deck and sets the location of where itll be
     private void Create_Deck() {
         Debug.Log("Deck start");
         GameObject deck = Resources.Load("Prefabs/deck") as GameObject;
@@ -76,6 +95,8 @@ public class Table : MonoBehaviour
         draw_deck = new_deck.GetComponent<Deck>();
         Debug.Log("Deck done");
     }
+
+    //Deals the cards to the players
     public void initial_deal() {
         Debug.Log("Dealing start");
         Debug.Log(draw_deck.draw_deck.Count);
@@ -86,9 +107,14 @@ public class Table : MonoBehaviour
         AdvanceTurn();
         Debug.Log("Dealing done");
     }
+
+    //Goes to the next player
     public void AdvanceTurn() {
         StartCoroutine(NextPlayer());
     }
+
+
+    //Deals with who the next player will be
     IEnumerator NextPlayer() {
         current_player.StackCards();
         if (reversed) {
@@ -101,6 +127,8 @@ public class Table : MonoBehaviour
         yield return new WaitUntil(() => ready);
         Update_Scores();
     }
+
+    //Will skip the next player depending on the order
     public void Skip() {
         current_player.StackCards();
         if (reversed) {
@@ -109,9 +137,14 @@ public class Table : MonoBehaviour
             current = current.Next ?? current.List.First;
         }
     }
+
+    //Makes order reversed
     public void Reverse() {
         reversed = !reversed;
     }
+
+
+    //Deals with updating the score of each plyer and if the score is 21 or higher, they win
     private void Update_Scores() {
         p1.text = player1.UpdateScore().ToString();
         p2.text = player2.UpdateScore().ToString();
@@ -121,6 +154,8 @@ public class Table : MonoBehaviour
         if (player4) {
             p4.text = player4.UpdateScore().ToString();
         }
+
+        //This focuses on who wins
         if (player1.score >= 21 && !current_player.StopWin()) {
             gameOver.SetActive(true);
             gameOver.GetComponentInChildren<TextMeshProUGUI>().text = "Player 1 wins!";
@@ -138,9 +173,12 @@ public class Table : MonoBehaviour
             gameOver.GetComponentInChildren<TextMeshProUGUI>().text = "Player 4 wins!";
         }
     }
+
+
     public void SetReady(bool a) {
         ready = a;
     }
+
     void Update() {
     }
 }

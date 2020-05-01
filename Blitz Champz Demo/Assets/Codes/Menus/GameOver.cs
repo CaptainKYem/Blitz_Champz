@@ -12,11 +12,17 @@ public class GameOver : MonoBehaviour
     private void OnPointerUpAsButton() {
 
 	}
+
+    //If game is over, click to go back to the start page
     public void Restart() {
         SceneManager.LoadScene("StartPage");
     }
+
+
 	void OnPointerEnter() {
 	}
+
+
 	void OnPointerExit() {
 		
 	}

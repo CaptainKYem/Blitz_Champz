@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class Extra_Point : Offensive_Card
 {
+    //Sets the points it can give and its ability
     void Start()
     {
         value = 1;
@@ -11,9 +12,13 @@ public class Extra_Point : Offensive_Card
 		pass = false;
 		run = false; 
     }
+
+    //Shows the card
     public override void Show() {
         gameObject.GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>("Cards/extra_point");
     }
+
+
     void Update()
     {
         

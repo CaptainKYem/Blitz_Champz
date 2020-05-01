@@ -10,12 +10,16 @@ public class Pass_Completion : Continuation_Card
     public float speed = .5f;
     private Vector3 target;
     private Vector3 position;
+
+    // Start is called before the first frame update
     void Start() {
-        //animation
+        //gives variables its coordinates to go from its current position from hand to its target discard pile
         target = new Vector3(-1.45f, 0f, 0f);
         position = gameObject.transform.position;
         
     }
+
+    //When card is played, activate the animation and then draw a card
     protected override void Play() {
         
         StartCoroutine(MoveTo());
@@ -26,14 +30,18 @@ public class Pass_Completion : Continuation_Card
 		source.Play();
         AdvanceTurn();
     }
+
+    //shows the card
 	public override void Show() {
         gameObject.GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>("Cards/pass_completion");
     }
+
+
     void Update() {
         
     }
 
-    //MoveTo Coroutine
+    //allows the card from hand to move to its target position
      IEnumerator MoveTo()
     {
        

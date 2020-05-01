@@ -9,11 +9,8 @@ public class Player : Offensive_Card{
 	
 	public Table table;
 	
-	//animation
-    //public float speed = 1f;
-    private Vector3 toTable;
-    private Vector3 fromHand;
-
+	
+    //Aligns the location of the right side correctly without cards going out of the board in the hand and sets the score to 0
 	void Start () {
 		score = 0;
 		if (this.transform.position.x > 0) {
@@ -24,6 +21,9 @@ public class Player : Offensive_Card{
 			gameObject.transform.rotation = Quaternion.Euler(0,0,180f);
 		}
 	}
+
+
+    //Deals with updating the score once a card is selected by the player
 	public int UpdateScore() {
 		score = 0;
 		foreach (GameObject card in field) {
@@ -35,6 +35,9 @@ public class Player : Offensive_Card{
 		}
 		return score;
 	}
+
+
+    //Deals with the player drawing a card from deck and adding to hand with ordering of how it was drawn
 	public void Draw() {
 		Deck draw_deck = table.draw_deck;
 		if (draw_deck.draw_deck.Count > 0 && table.current_player == this) {
@@ -45,11 +48,15 @@ public class Player : Offensive_Card{
 		OrderCards();
 	}
 
+
+    //Deals with removing continuation cards from the hand along with field
 	public void Remove(GameObject card) {
 		field.Remove(card);
 		hand.Remove(card);
 	}
 
+
+    //Deals with hiding the other inactive player's hand
 	public void StackCards() {
 		for (int i = 0; i < hand.Count; i++) {
 			hand[i].transform.position = gameObject.transform.position;
@@ -62,7 +69,7 @@ public class Player : Offensive_Card{
 
     
 
-
+    //Deals with the ordering of the cards and showing the cards to the active player
 	public void OrderCards() {
 		if (CheckValid() == false) {
 			Debug.Log("No valid cards. Discard please.");
@@ -75,6 +82,7 @@ public class Player : Offensive_Card{
 
 				hand[i].GetComponent<Transform>().position = gameObject.transform.position + adjustment + new Vector3(0f, 0f, 2 * (hand.Count - i));
 				hand[i].GetComponent<BoxCollider>().enabled = true;
+				//Shows the active player their cards.
 				if (this == table.current_player) {
 					hand[i].GetComponent<Card>().Show();
 				}
@@ -88,6 +96,7 @@ public class Player : Offensive_Card{
 				
 				hand[i].GetComponent<Transform>().position = gameObject.transform.position + adjustment + new Vector3(0f, 0f, 2 * i);
 				hand[i].GetComponent<BoxCollider>().enabled = true;
+                //Shows the active player their cards.
 				if (this == table.current_player) {
 					hand[i].GetComponent<Card>().Show();
 				}
@@ -96,6 +105,8 @@ public class Player : Offensive_Card{
 		OrderField();
 	}
 
+
+    //Checks if the card in the hand is valid to play
 	protected bool CheckValid() {
 		bool temp_valid = false;
 		for (int i = 0; i < hand.Count; i++) {
@@ -106,6 +117,9 @@ public class Player : Offensive_Card{
 		valid = temp_valid;
 		return temp_valid;
 	}
+
+
+    //Stops the offensive card with the correct used defensive card
 	public bool StopWin() {
 		bool canStop = false;
 		foreach (GameObject a in hand) {
@@ -127,6 +141,8 @@ public class Player : Offensive_Card{
 		}
 		return canStop;
 	}
+
+    //Gets the status if the move was valid
 	public bool GetValid() {
 		return valid;
 	}

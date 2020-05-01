@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class Tackle : Defensive_Card
 {
+
+    //gives defensive card tackle its property
     void Start()
     {
         run = true;
@@ -11,7 +13,9 @@ public class Tackle : Defensive_Card
 		target = new Vector3(-1.45f, 0f, 0f);
         position = gameObject.transform.position;
     }
-	public override void Show() {
+
+    //Shows the card
+    public override void Show() {
         gameObject.GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>("Cards/tackle");
     }
     void Update()
